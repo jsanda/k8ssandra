@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	util "./util"
+	"github.com/k8ssandra/k8ssandra/tests/integration/util"
 	"github.com/gruntwork-io/terratest/modules/helm"
 	"github.com/gruntwork-io/terratest/modules/k8s"
 	"github.com/stretchr/testify/assert"
@@ -51,7 +51,7 @@ func teardown(t *testing.T, helmOptions *helm.Options) {
 }
 
 // TestCassOperator performs basic installation of cass-operator.
-func TestCassOperator(t *testing.T) {
+func _TestCassOperator(t *testing.T) {
 
 	// Setup
 	namespace, kubeOptions, helmOptions := setup(t)
@@ -70,7 +70,7 @@ func TestCassOperator(t *testing.T) {
 }
 
 // Test for cleaning up manually as needed.
-func TestCleanup(t *testing.T) {
+func _TestCleanup(t *testing.T) {
 
 	var cleanupWaiter sync.WaitGroup
 
