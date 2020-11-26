@@ -54,7 +54,7 @@ func DeleteResources(t *testing.T, kubeOptions *k8s.KubectlOptions, targets []st
 	resultMap := map[string]string{}
 	for _, target := range targets {
 
-		var lookup string = ""
+		lookup := ""
 		var err error = nil
 		if strings.ToLower(target) == "secret" {
 
