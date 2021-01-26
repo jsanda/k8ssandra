@@ -42,7 +42,7 @@ spec:
   routes:
     - match: HostSNI(`*`)
       services:
-        - name: {{ $clusterName }}-{{ $datacenterName }}-service
+        - name: {{ $releaseName }}-{{ $datacenterName }}-service
           port: 9042
 {{- end }}
 {{- if $traefik.stargate.enabled }}
