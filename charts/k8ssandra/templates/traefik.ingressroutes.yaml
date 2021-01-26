@@ -128,7 +128,7 @@ spec:
   routes:
     - match: Host(`{{ $stargateHost }}`)
       services:
-        - name: {{ $clusterName }}-{{ $datacenterName }}-stargate-service
+        - name: {{ $releaseName }}-{{ $datacenterName }}-stargate-service
           kind: Service
           port: 9042
 {{- end }}
