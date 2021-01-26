@@ -100,7 +100,7 @@ spec:
         paths:
           - path: /checker
             backend:
-              serviceName: {{ $clusterName }}-{{ $datacenterName }}-stargate-service
+              serviceName: {{ $releaseName }}-{{ $datacenterName }}-stargate-service
               servicePort: 8084
 {{- end }}
 {{- if $traefik.stargate.metrics.enabled }}
@@ -109,7 +109,7 @@ spec:
         paths:
           - path: /metrics
             backend:
-              serviceName: {{ $clusterName }}-{{ $datacenterName }}-stargate-service
+              serviceName: {{ $releaseName }}-{{ $datacenterName }}-stargate-service
               servicePort: 8085
 {{- end }}
 {{- if $traefik.stargate.cassandra.enabled }}
