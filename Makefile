@@ -22,6 +22,8 @@ ENVTEST_ASSETS_DIR=$(shell pwd)/testbin
 CLUSTER_CLEANUP=always
 KIND_CLUSTER=k8ssandra-it
 
+USE_LOCAL_VERSION ?= true
+
 test: fmt vet unit-test pkg-test
 
 unit-test:
@@ -58,13 +60,19 @@ vet:
 	go vet ./tests/...
 
 tools-docker-build:
+ifeq ($(USE_LOCAL_VERSION), true)
 	@echo Building test version of ${TOOLS_REV_IMAGE}
 	set -e ;\
 	VER=$$(yq eval '.version' charts/k8ssandra/Chart.yaml) ;\
 	mkdir -p build/$$VER ;\
 	cp -rv charts/* build/$$VER/ ;\
 	docker buildx build $(BUILDX_PARAMS) -t ${TOOLS_IMG} -f cmd/k8ssandra-client/Dockerfile.it . ;\
-	rm -fr build/$$VER ;\
+	rm -fr build/$$VER ;
+else
+	@echo Building ${TOOLS_REV_IMAGE}
+	docker build -t ${TOOLS_REV_IMAGE} -f cmd/k8ssandra-client/Dockerfile .
+	docker tag ${TOOLS_REV_IMAGE} ${TOOLS_LATEST_IMAGE}
+endif
 
 tools-docker-kind-load: tools-docker-build
 	@echo Loading tools to kind
