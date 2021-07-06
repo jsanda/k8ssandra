@@ -26,7 +26,7 @@ jobs:
 #            ${{ runner.os }}-buildx-integ-
       - name: Install yq
         run: |
-          ./scripts/install-yq.sh 4.9.3
+          ./scripts/install-yq.sh v4.9.3
           PATH=bin:$PATH
       - name: Show yq help
         run: ./bin/yq help
