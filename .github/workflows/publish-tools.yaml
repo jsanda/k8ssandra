@@ -35,19 +35,25 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+      - name: Copy charts
+        run: |
+          VER=$(./bin/yq eval '.version' charts/k8ssandra/Chart.yaml)
+          mkdir -p build/$$VER
+          cp -rv charts/* build/$VER/
+
       - name: Set git parsed values
         id: vars
         run: |
           echo ::set-output name=sha_short::$(git rev-parse --short=8 ${{ github.sha }})
-          echo ::set-output name=tag_name::${GITHUB_REF#refs/tags/}
+#          echo ::set-output name=tag_name::${GITHUB_REF#refs/tags/}
       - name: Build and push
         id: docker_build
-        run: make tools-docker-build
-#        uses: docker/build-push-action@v2
-#        with:
-#          file: cmd/k8ssandra-client/Dockerfile
-#          push: true
-#          tags: k8ssandra/k8ssandra-tools:${{ steps.vars.outputs.tag_name}}
-#          platforms: linux/amd64
-#          cache-from: type=local,src=/tmp/.buildx-cache
-#          cache-to: type=local,dest=/tmp/.buildx-cache
+#        run: make tools-docker-build
+        uses: docker/build-push-action@v2
+        with:
+          file: cmd/k8ssandra-client/Dockerfile.it
+          push: true
+          tags: jsanda/k8ssandra-tools:${{ steps.vars.outputs.sha_short}}
+          platforms: linux/amd64
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
