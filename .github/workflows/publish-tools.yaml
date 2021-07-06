@@ -5,9 +5,9 @@ on:
     branches:
      - main
      - offline-tools
-    paths:
-      - 'pkg/**'
-      - 'cmd/**'
+#    paths:
+#      - 'pkg/**'
+#      - 'cmd/**'
 jobs:
   build_docker_images:
     name: Build Docker Images
