@@ -38,7 +38,7 @@ jobs:
       - name: Copy charts
         run: |
           VER=$(./bin/yq eval '.version' charts/k8ssandra/Chart.yaml)
-          mkdir -p build/$$VER
+          mkdir -p build/$VER
           cp -rv charts/* build/$VER/
 
       - name: Set git parsed values
