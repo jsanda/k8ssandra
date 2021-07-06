@@ -24,7 +24,7 @@ jobs:
           key: ${{ runner.os }}-buildx-integ-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-buildx-integ-
-      - uses: chrisdickinson/setup-yq@latest
+      - uses: chrisdickinson/setup-yq@3.4.1
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
