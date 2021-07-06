@@ -60,7 +60,7 @@ vet:
 tools-docker-build:
 	@echo Building test version of ${TOOLS_REV_IMAGE}
 	set -e ;\
-	VER=$$(yq eval '.version' charts/k8ssandra/Chart.yaml) ;\
+	VER=$$(./bin/yq eval '.version' charts/k8ssandra/Chart.yaml) ;\
 	mkdir -p build/$$VER ;\
 	cp -rv charts/* build/$$VER/ ;\
 	docker buildx build $(BUILDX_PARAMS) -t ${TOOLS_IMG} -f cmd/k8ssandra-client/Dockerfile.it . ;\
