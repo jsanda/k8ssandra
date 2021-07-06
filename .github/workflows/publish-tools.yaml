@@ -24,7 +24,10 @@ jobs:
           key: ${{ runner.os }}-buildx-integ-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-buildx-integ-
-      - uses: mikefarah/yq@3.4.1
+      - name: Install yq and validate tool versions
+          run: |
+            scripts/install-yq.sh ${{ env.YQ_VERSION }}
+            PATH=bin:$PATH
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
